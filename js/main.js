@@ -87,7 +87,7 @@ function actualizarproductos() {
 
   //si pasa eso actualiza la cantidad
 
-  producto.cantidad = cantidadnueva;
+  producto.cantidad += cantidadnueva;
   alert("✅ Cantidad actualizada con éxito. ¡El stock ha sido actualizado!");
 }
 
