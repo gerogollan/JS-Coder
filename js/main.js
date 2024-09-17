@@ -43,6 +43,31 @@ function agregarproducto() {
   alert("✅ Producto agregado con éxito al inventario.");
 }
 
+// Función para restar productos
+function restarProductos() {
+  let nombre = prompt("🔻 Ingresa el nombre del producto del cual deseas restar stock:");
+  let producto = inventario.find((producto) => producto.nombre === nombre);
+
+  if (!producto) {
+    alert("❌ Producto no encontrado en el inventario.");
+    return;
+  }
+
+  let cantidadARestar = parseInt(prompt("🔽 Ingresa la cantidad a restar del stock:"));
+  if (cantidadARestar <= 0 || isNaN(cantidadARestar)) {
+    alert("⚠️ Cantidad inválida. Por favor, ingresa un número mayor que 0.");
+    return;
+  }
+
+  if (cantidadARestar > producto.cantidad) {
+    alert("⚠️ No puedes restar más productos de los que hay en stock.");
+    return;
+  }
+
+  producto.cantidad -= cantidadARestar;
+  alert("✅ Cantidad restada con éxito. ¡El stock ha sido actualizado!");
+}
+
 //Funcion para ver el inventario
 
 function verinventario() {
@@ -91,6 +116,10 @@ function actualizarproductos() {
   alert("✅ Cantidad actualizada con éxito. ¡El stock ha sido actualizado!");
 }
 
+
+
+
+
 //Funcion para el menu para el usuario
 //switch y do para que se repita el menu
 
@@ -100,7 +129,7 @@ function Menu() {
   do {
     opcion = parseInt(
       prompt(
-        "🔧 Menú del Inventario: \n1. Ver el inventario 📋\n2. Agregar productos ➕\n3. Actualizar cantidad ✏️\n4. Salir 🚪 "
+        "🔧 Menú del Inventario: \n1. Ver el inventario 📋\n2. Agregar productos ➕\n3. Actualizar cantidad ✏️ \n4. Restar productos 🔻 \n5. Salir 🚪 "
       )
     );
 
@@ -117,7 +146,11 @@ function Menu() {
         actualizarproductos();
         break;
 
-      case 4:
+       case 4:
+        restarProductos();
+        break;
+
+      case 5:
         alert("👋 ¡Hasta luego! Saliendo del programa.");
         break;
 
@@ -125,7 +158,7 @@ function Menu() {
         alert("⚠️ Opción no válida. Por favor, selecciona una opción del 1 al 4.");
         break;
     }
-  } while (opcion !== 4);
+  } while (opcion !== 5);
 }
 
 
