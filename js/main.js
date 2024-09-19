@@ -1,7 +1,7 @@
 //Sistema de inventario/stock para un negocio
 //Productos en stock y agregar/quitar producots
 
-const maxproductos = 100;
+const maxproductos = 1000;
 //constante limitando la cantidad máxima de productos
 
 let inventario = [];
@@ -36,7 +36,8 @@ function agregarproducto() {
   );
   //si da true saltaría este error
   if (productoexistente) {
-    alert("⚠️ Atención: Este producto ya existe en nuestro inventario.");
+    alert("⚠️ Atención: Este producto ya existe en nuestro inventario.")
+    return;
   }
 
   inventario.push({ nombre: nombre, cantidad: cantidad });
@@ -73,7 +74,8 @@ function restarProductos() {
 function verinventario() {
   //este if es por si no hay productos en el inventario muestra ese alert.
   if (inventario.length === 0) {
-    alert("🔍 El inventario está vacío. ¡Agrega algunos productos!");
+    alert("🔍 El inventario está vacío. ¡Agrega algunos productos!")
+    return;
   }
 
   //variable para guardar el mensaje
@@ -90,7 +92,7 @@ function verinventario() {
 
 function actualizarproductos() {
   //le pide al usuario nombre del producto que quiere actualizar
-  let nombre = prompt("✏️ Ingresa el nombre del producto que deseas actualizar:v");
+  let nombre = prompt("✏️ Ingresa el nombre del producto que deseas actualizar:");
 
   //busca el producto
   let producto = inventario.find((producto) => producto.nombre === nombre);
@@ -112,7 +114,7 @@ function actualizarproductos() {
 
   //si pasa eso actualiza la cantidad
 
-  producto.cantidad += cantidadnueva;
+  producto.cantidad = cantidadnueva;
   alert("✅ Cantidad actualizada con éxito. ¡El stock ha sido actualizado!");
 }
 
@@ -137,25 +139,25 @@ function Menu() {
       case 1:
         verinventario();
         break;
-
+    
       case 2:
         agregarproducto();
         break;
-
+    
       case 3:
         actualizarproductos();
         break;
-
-       case 4:
+    
+      case 4:
         restarProductos();
         break;
-
+    
       case 5:
         alert("👋 ¡Hasta luego! Saliendo del programa.");
         break;
-
+    
       default:
-        alert("⚠️ Opción no válida. Por favor, selecciona una opción del 1 al 4.");
+        alert("⚠️ Opción no válida. Por favor, selecciona una opción del 1 al 5."); 
         break;
     }
   } while (opcion !== 5);

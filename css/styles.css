@@ -1,16 +1,14 @@
 body{
-    background-color: #191414; 
-    color: #1DB954; 
-    text-transform: uppercase;
+    background-color: #A22522; 
+    
 }
 
 h1{
     font-size: 30px;
+    color: white;
+    text-transform: uppercase;
 }
 h2{
+    color: white;
     font-size: 20px; 
-    color: white; 
-    text-decoration: 
-    underline; 
-    text-transform: uppercase;
 }
