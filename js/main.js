@@ -1,168 +1,147 @@
-//Sistema de inventario/stock para un negocio
-//Productos en stock y agregar/quitar producots
+let transacciones = []; // Array para guardar las transacciones
 
-const maxproductos = 1000;
-//constante limitando la cantidad máxima de productos
+const form = document.querySelector("#form"); //constante que selecciona el formulario
+const montoInput = document.getElementById("formMonto"); //const para los datos del form, monto
+const descripcionInput = document.getElementById("descripción");//descripcion
+const tipoSelect = document.getElementById("tipo");//tipo de movimiento
 
-let inventario = [];
-//array donde guardare los productos
+form.addEventListener("submit", function (event) { //evento
+  event.preventDefault(); //sin esto se me reinicia la pagina
 
-alert(
-  "🌟 Bienvenido al inventario de tu negocio. \n\nHaz clic en aceptar para acceder al inventario. 📦"
-);
+  const monto = parseFloat(montoInput.value); //recibe el monto y lo transpasa como numero
+  const descripcion = descripcionInput.value.trim(); 
+  const tipo = tipoSelect.value;
 
-// funciones
-
-//function para gregar productos al inventario, pide nombre y cantidad de productos, controla que no se ingresen 0 produtos
-//verifica si el producto ya esta en el sistema con un arrow y despues con un push ingresa el objeto a la variable inventario
-function agregarproducto() {
-  //un prompt para que el usuario ingrese el nombre del producto
-  let nombre = prompt("🆕 Ingresa el nombre del producto que quieres agregar:");
-
-  //prompt para declarar la cantidad de productos
-  let cantidad = parseInt(prompt("📊 ¿Cuántos productos deseas agregar?"));
-
-  //if por si el usuario quiere agregar 0 productos, saltaría un error
-  if (cantidad <= 0) {
-    alert("⚠️ El número ingresado es inválido. Por favor, ingresa un número mayor que 0.");
+  // Valida que el usuario ingrese bien los datos
+  if (isNaN(monto) || monto <= 0) { //si isnotanumber(monto) o monto igual o menor a 0 tira el alert
+    alert("Por favor, ingresa un monto válido.");
+    return;
+  }
+  if (descripcion === "") { //si la descripcion esta vacia te tira el alert
+    alert("La descripción no puede estar vacía.");
     return;
   }
 
-  //verificar si el producto existe en el sistema
-  //esta variable busca en el array inventario un producto que tenga el mismo nombre que uno ya existente
+  const transaccion = { tipo, monto, descripcion };
+  transacciones.push(transaccion); // Agrega la transacción al array
+  localStorage.setItem("transacciones", JSON.stringify(transacciones)); // Guarda en localStorage
+  renderizarTransacciones();
+  calcularSaldo();
+  form.reset(); // resetea el formulario
+});
 
-  let productoexistente = inventario.find(
-    (producto) => producto.nombre === nombre
-  );
-  //si da true saltaría este error
-  if (productoexistente) {
-    alert("⚠️ Atención: Este producto ya existe en nuestro inventario.")
-    return;
-  }
-
-  inventario.push({ nombre: nombre, cantidad: cantidad });
-  alert("✅ Producto agregado con éxito al inventario.");
+// recarga las transacciones cuando abrimos la pagina
+if (localStorage.getItem("transacciones")) {
+  transacciones = JSON.parse(localStorage.getItem("transacciones")); //trae las transacciones guardadas
 }
 
-// Función para restar productos
-function restarProductos() {
-  let nombre = prompt("🔻 Ingresa el nombre del producto del cual deseas restar stock:");
-  let producto = inventario.find((producto) => producto.nombre === nombre);
+// muestra las transacciones
+function renderizarTransacciones(filtro = "todos") {
+  const listaTransacciones = document.querySelector("#transacciones");
+  listaTransacciones.innerHTML = ""; // Limpia la lista antes de renderizar
 
-  if (!producto) {
-    alert("❌ Producto no encontrado en el inventario.");
-    return;
-  }
+  transacciones.forEach((transaccion, index) => {
+    if (filtro === "todos" || transaccion.tipo.toLowerCase() === filtro) {
+      const li = document.createElement("li");
+      li.textContent = `${transaccion.descripcion}: ${transaccion.monto}`;
+      li.className =
+        transaccion.tipo.toLowerCase() === "ingreso" ? "ingreso" : "gasto";
 
-  let cantidadARestar = parseInt(prompt("🔽 Ingresa la cantidad a restar del stock:"));
-  if (cantidadARestar <= 0 || isNaN(cantidadARestar)) {
-    alert("⚠️ Cantidad inválida. Por favor, ingresa un número mayor que 0.");
-    return;
-  }
+      //boton para eliminar
+      const btnEliminar = document.createElement("button"); //crea el button
+      btnEliminar.textContent = "Eliminar"; //este es el texto del button
+      btnEliminar.addEventListener("click", () => eliminarTransaccion(index));
+      li.appendChild(btnEliminar);
 
-  if (cantidadARestar > producto.cantidad) {
-    alert("⚠️ No puedes restar más productos de los que hay en stock.");
-    return;
-  }
+      //button para editar
+      const btnEditar = document.createElement("button");
+      btnEditar.textContent = "Editar";
+      btnEditar.addEventListener("click", () => editarTransaccion(index)); //evento para editar
+      li.appendChild(btnEditar);
 
-  producto.cantidad -= cantidadARestar;
-  alert("✅ Cantidad restada con éxito. ¡El stock ha sido actualizado!");
-}
-
-//Funcion para ver el inventario
-
-function verinventario() {
-  //este if es por si no hay productos en el inventario muestra ese alert.
-  if (inventario.length === 0) {
-    alert("🔍 El inventario está vacío. ¡Agrega algunos productos!")
-    return;
-  }
-
-  //variable para guardar el mensaje
-  let mensaje = "📦 Inventario de productos: \n";
-
-  //for (desde (variable i igual a 0); hasta que (variable i sea menor que el largo del inventario) actualizacion (variable i sumandose)
-  for (let i = 0; i < inventario.length; i++) {
-    //variable mensaje (+= le agrega al string) nombre y cantidad
-    mensaje += `🔹 Producto: ${inventario[i].nombre}, cantidad: ${inventario[i].cantidad} \n`;
-  }
-
-  alert(mensaje);
-}
-
-function actualizarproductos() {
-  //le pide al usuario nombre del producto que quiere actualizar
-  let nombre = prompt("✏️ Ingresa el nombre del producto que deseas actualizar:");
-
-  //busca el producto
-  let producto = inventario.find((producto) => producto.nombre === nombre);
-  if (!producto) {
-    alert("❌ Producto no encontrado en el inventario.");
-    return;
-  }
-
-  //pide la cantidad para agregar
-  let cantidadnueva = parseInt(
-    prompt("🔄 Ingresa la cantidad a sumar al stock:")
-  );
-
-  //verificar que no sea 0 o menos
-  if (cantidadnueva <= 0) {
-    alert("⚠️ Cantidad inválida. Por favor, ingresa un número mayor que 0.");
-    return;
-  }
-
-  //si pasa eso actualiza la cantidad
-
-  producto.cantidad = cantidadnueva;
-  alert("✅ Cantidad actualizada con éxito. ¡El stock ha sido actualizado!");
-}
-
-
-
-
-
-//Funcion para el menu para el usuario
-//switch y do para que se repita el menu
-
-
-function Menu() {
-  let opcion;
-  do {
-    opcion = parseInt(
-      prompt(
-        "🔧 Menú del Inventario: \n1. Ver el inventario 📋\n2. Agregar productos ➕\n3. Actualizar cantidad ✏️ \n4. Restar productos 🔻 \n5. Salir 🚪 "
-      )
-    );
-
-    switch (opcion) {
-      case 1:
-        verinventario();
-        break;
-    
-      case 2:
-        agregarproducto();
-        break;
-    
-      case 3:
-        actualizarproductos();
-        break;
-    
-      case 4:
-        restarProductos();
-        break;
-    
-      case 5:
-        alert("👋 ¡Hasta luego! Saliendo del programa.");
-        break;
-    
-      default:
-        alert("⚠️ Opción no válida. Por favor, selecciona una opción del 1 al 5."); 
-        break;
+      listaTransacciones.appendChild(li); // Agrega el nuevo elemento a la lista
     }
-  } while (opcion !== 5);
+  });
 }
 
+//calcular y mostrar saldo
+function calcularSaldo() {
+  const totalIngresos = transacciones.reduce(
+    (sum, transaccion) =>
+      transaccion.tipo === "Ingreso" ? sum + transaccion.monto : sum,
+    0
+  );
+  const totalGastos = transacciones.reduce(
+    (sum, transaccion) =>
+      transaccion.tipo === "Gasto" ? sum + transaccion.monto : sum,
+    0
+  );
+  const saldo = totalIngresos - totalGastos;
+  if (saldo <= 0) { //ifSI saldo <= 0 genera un alert
+    alert("El Saldo de tu cuenta no puede ser un numero negativo");
+  }
+  document.querySelector("#saldo").textContent = saldo;
+}
 
+//function para eliminar transacción
+function eliminarTransaccion(index) {
+  transacciones.splice(index, 1); //elimina la transacción del array
+  localStorage.setItem("transacciones", JSON.stringify(transacciones)); //actualiza localStorage
+  renderizarTransacciones(); //vuelve a mostrar
+  calcularSaldo(); //actualiza el saldo
+}
 
-Menu();
+//funcion para editar transacciónes
+function editarTransaccion(index) {
+  montoInput.value = transacciones[index].monto; //rellena el monto
+  descripcionInput.value = transacciones[index].descripcion; //rellena ladescripción
+  tipoSelect.value = transacciones[index].tipo; //
+  eliminarTransaccion(index); //elimina la transacción para que se agregue de nuevo al guardar
+}
+
+//Historial
+document.querySelector("#toggleHistorial").addEventListener("click", function () {
+    const historial = document.querySelector("#transacciones"); //selecciona el historial
+    //constante nombreconstante = document(html).queryselector(seleccionador)("#nombre")
+
+    const mostrando =
+      historial.style.display === "none" || historial.style.display === "";
+      //verificacion para ver si esta oculto el historial
+
+    historial.style.display =
+      historial.style.display === "none" ? "block" : "none";
+      historialText.style.display === "none" ? "block" : "none";
+      //historial > estilo > estilo display 
+
+    if (mostrando) {
+      renderizarHistorial();
+    }
+  });
+
+//renderizar el historial
+function renderizarHistorial() {
+  const historial = document.querySelector("#transacciones");
+  historial.innerHTML = ""; //esto limpia el historial antes de renderizar
+
+const h4 = document.createElement("h4"); //crea un elemento h4
+h4.textContent = `Ultimos Movimientos`; // el texto del h4
+historial.appendChild(h4); //agrega el h4 a #transacciones > historial
+
+  transacciones.forEach((transaccion) => {
+    const li = document.createElement("li"); //crea un li
+    li.textContent = `${transaccion.descripcion}: ${transaccion.monto} (${transaccion.tipo})`; 
+    //li.texcontent(el texto del li) = `$(variabletransaccion.valordescripcion)`
+
+    historial.appendChild(li); //lo sube como hijo al historial html
+  });
+}
+
+//filtrar transaccion
+const filtroSelect = document.querySelector("#filtro");
+filtroSelect.addEventListener("change", function () {
+  renderizarTransacciones(filtroSelect.value.toLowerCase());
+});
+
+//al cargar la página, renderiza transacciones
+renderizarTransacciones(); //esto muestra/ renderiza las transacciones
+calcularSaldo(); //calcula el saldo cada vez que se ejecuta la pagina.

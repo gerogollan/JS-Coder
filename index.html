@@ -1,49 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proyecto JS - Simulador de Finanzas Personales</title>
+    <!-- //fuente de google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- //fin de fuente de google
+//linkeo y script de js -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <script defer src="js/main.js"></script>
+  </head>
 
-<head>
+  <body>
+    <header>
+      <h1>- Simulador de Finanzas Personales -</h1>
+      <h2>Controla tus ingresos y tus gastos.</h2>
+    </header>
 
-    <meta charset="UTF-8">
+    <section id="SectionSaldo">
+      <h3>Saldo actual: $ <span id="saldo">0</span></h3>
+    </section>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <section id="SectionForm">
+      <form id="form">
+        <input type="number" id="formMonto" placeholder="Monto" required />
+        <input
+          type="text"
+          id="descripción"
+          placeholder="Descripción"
+          required
+        />
+        <select id="tipo">
+          <option value="Ingreso">Ingreso</option>
+          <option value="Gasto">Gasto</option>
+        </select>
+        <button type="submit">Agregar movimiento</button>
+      </form>
+    </section>
 
-    <title>Proyecto JS-Geronimo Gollan</title>
+    <button id="toggleHistorial">Mostrar/Ocultar Historial</button>
 
+    <select id="filtro">
+      <option value="todos">Todos</option>
+      <option value="ingreso">Ingresos</option>
+      <option value="gasto">Gastos</option>
+    </select>
 
-     <!--css -->
-      <link rel="stylesheet" href="/css/styles.css">
+    <section id="SectionTransacciones">
+      <h4></h4>
+      <ul id="transacciones" style="display: none"></ul>
+    </section>
 
-
-
-               <!-- Linkeo a Js -->
-   <script defer src="./js/main.js"></script>
-               <!-- Fin de linkeo a Js -->
-
-
-</head>
-
-<body>
-
-<h1> 
-    <strong> Geronimo Gollan - Coder House - JS </strong> 
-</h1>
-
-<h2>
-    Stockify - Control de Stock
-</h2>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
+    <footer>
+      <div>Proyecto Coder-House JavaScript Geronimo Gollan</div>
+    </footer>
+  </body>
 </html>
