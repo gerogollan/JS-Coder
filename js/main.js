@@ -77,7 +77,7 @@ function calcularSaldo() {
     0
   );
   const saldo = totalIngresos - totalGastos;
-  if (saldo <= 0) { //ifSI saldo <= 0 genera un alert
+  if (saldo < 0) { //if(SI) saldo < 0 genera un alert
     alert("El Saldo de tu cuenta no puede ser un numero negativo");
   }
   document.querySelector("#saldo").textContent = saldo;
