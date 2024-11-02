@@ -88,7 +88,7 @@ function eliminarTransaccion(index) {
   transacciones.splice(index, 1); //elimina la transacción del array
   localStorage.setItem("transacciones", JSON.stringify(transacciones)); //actualiza localStorage
   renderizarTransacciones(); //vuelve a mostrar
-  calcularSaldo(); //actualiza el saldo
+  calcularSaldo(); //actualiza el saldoz
 }
 
 //funcion para editar transacciónes

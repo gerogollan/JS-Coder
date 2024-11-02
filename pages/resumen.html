@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proyecto JS - Simulador de Finanzas Personales</title>
+    <!-- //fuente de google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- //fin de fuente de google-->
+
+    <!-- css -->
+    <link rel="stylesheet" href="../css/styles.css" />
+
+    <!--linkeo y script de js -->
+
+    <!-- js login -->
+    <script defer src="../js/login.js"></script>
+
+    <!-- js del resumen -->
+     <script defer src="../js/resumen.js"></script>
+
+    <!-- js principal -->
+
+    <script defer src="../js/practica.js"></script>
+
+    <!-- script con linkeo al sweetalerts -->
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+  
+
+  </head>
+  <body>
+    <header>
+      <h1><a href="../index.html";">VanguardBank</a></h1>
+      <h2>Resumen de cuenta. </h2>
+    </header>
+
+    <main>
+        <h3  id="h3Fecha">Fecha actual 
+          <div id="fechaActual"></div></span> 
+      </h3>
+
+      <h3 id="containerNumeroCuenta"> Nro Cuenta: <span  id="numeroCuenta" ></span></h3>
+
+        <ul id="listaTransacciones"></ul>
+
+        
+        <h3 id="h3Total" >Total: $<span id="totalSaldo"></span></h3>
+    </main>
+
+    <footer>
+      <button><a href="../index.html">Volver al inicio</a></button>
+      <button id="logoutButton">Cerrar sesion</button>ç
+
+      <div>Todos los derechos reservados. Geronimo Gollan - 2024</div>
+    </footer>
+  </body>
+</html>

@@ -598,141 +598,927 @@
 // }
 
 //CODIGO 2
-let transacciones = []; // Array para guardar las transacciones
+// let transacciones = []; // Array para guardar las transacciones
 
-const form = document.querySelector("#form"); //constante que selecciona el formulario
-const montoInput = document.getElementById("formMonto"); //const para los datos del form, monto
-const descripcionInput = document.getElementById("descripción");//descripcion
-const tipoSelect = document.getElementById("tipo");//tipo de movimiento
+// const form = document.querySelector("#form"); //constante que selecciona el formulario
+// const montoInput = document.getElementById("formMonto"); //const para los datos del form, monto
+// const descripcionInput = document.getElementById("descripción");//descripcion
+// const tipoSelect = document.getElementById("tipo");//tipo de movimiento
 
-form.addEventListener("submit", function (event) { //evento
+// form.addEventListener("submit", function (event) { //evento
+//   event.preventDefault(); //sin esto se me reinicia la pagina
+
+//   const monto = parseFloat(montoInput.value); //recibe el monto y lo transpasa como numero
+//   const descripcion = descripcionInput.value.trim();
+//   const tipo = tipoSelect.value;
+
+//   // Valida que el usuario ingrese bien los datos
+//   if (isNaN(monto) || monto <= 0) { //si isnotanumber(monto) o monto igual o menor a 0 tira el alert
+//     alert("Por favor, ingresa un monto válido.");
+//     return;
+//   }
+//   if (descripcion === "") { //si la descripcion esta vacia te tira el alert
+//     alert("La descripción no puede estar vacía.");
+//     return;
+//   }
+
+//   const transaccion = { tipo, monto, descripcion };
+//   transacciones.push(transaccion); // Agrega la transacción al array
+//   localStorage.setItem("transacciones", JSON.stringify(transacciones)); // Guarda en localStorage
+//   renderizarTransacciones();
+//   calcularSaldo();
+//   form.reset(); // resetea el formulario
+// });
+
+// // recarga las transacciones cuando abrimos la pagina
+// if (localStorage.getItem("transacciones")) {
+//   transacciones = JSON.parse(localStorage.getItem("transacciones")); //trae las transacciones guardadas
+// }
+
+// // muestra las transacciones
+// function renderizarTransacciones(filtro = "todos") {
+//   const listaTransacciones = document.querySelector("#transacciones");
+//   listaTransacciones.innerHTML = ""; // Limpia la lista antes de renderizar
+
+//   transacciones.forEach((transaccion, index) => {
+//     if (filtro === "todos" || transaccion.tipo.toLowerCase() === filtro) {
+//       const li = document.createElement("li");
+//       li.textContent = `${transaccion.descripcion}: ${transaccion.monto}`;
+//       li.className =
+//         transaccion.tipo.toLowerCase() === "ingreso" ? "ingreso" : "gasto";
+
+//       //boton para eliminar
+//       const btnEliminar = document.createElement("button"); //crea el button
+//       btnEliminar.textContent = "Eliminar"; //este es el texto del button
+//       btnEliminar.addEventListener("click", () => eliminarTransaccion(index));
+//       li.appendChild(btnEliminar);
+
+//       //button para editar
+//       const btnEditar = document.createElement("button");
+//       btnEditar.textContent = "Editar";
+//       btnEditar.addEventListener("click", () => editarTransaccion(index)); //evento para editar
+//       li.appendChild(btnEditar);
+
+//       listaTransacciones.appendChild(li); // Agrega el nuevo elemento a la lista
+//     }
+//   });
+// }
+
+// //calcular y mostrar saldo
+// function calcularSaldo() {
+//   const totalIngresos = transacciones.reduce(
+//     (sum, transaccion) =>
+//       transaccion.tipo === "Ingreso" ? sum + transaccion.monto : sum,
+//     0
+//   );
+//   const totalGastos = transacciones.reduce(
+//     (sum, transaccion) =>
+//       transaccion.tipo === "Gasto" ? sum + transaccion.monto : sum,
+//     0
+//   );
+//   const saldo = totalIngresos - totalGastos;
+//   if (saldo <= 0) { //ifSI saldo <= 0 genera un alert
+//     alert("El Saldo de tu cuenta no puede ser un numero negativo");
+//   }
+//   document.querySelector("#saldo").textContent = saldo;
+// }
+
+// //function para eliminar transacción
+// function eliminarTransaccion(index) {
+//   transacciones.splice(index, 1); //elimina la transacción del array
+//   localStorage.setItem("transacciones", JSON.stringify(transacciones)); //actualiza localStorage
+//   renderizarTransacciones(); //vuelve a mostrar
+//   calcularSaldo(); //actualiza el saldo
+// }
+
+// //funcion para editar transacciónes
+// function editarTransaccion(index) {
+//   montoInput.value = transacciones[index].monto; //rellena el monto
+//   descripcionInput.value = transacciones[index].descripcion; //rellena ladescripción
+//   tipoSelect.value = transacciones[index].tipo; //
+//   eliminarTransaccion(index); //elimina la transacción para que se agregue de nuevo al guardar
+// }
+
+// //Historial
+// document.querySelector("#toggleHistorial").addEventListener("click", function () {
+//     const historial = document.querySelector("#transacciones"); //selecciona el historial
+//     //constante nombreconstante = document(html).queryselector(seleccionador)("#nombre")
+
+//     const mostrando =
+//       historial.style.display === "none" || historial.style.display === "";
+//       //verificacion para ver si esta oculto el historial
+
+//     historial.style.display =
+//       historial.style.display === "none" ? "block" : "none";
+//       historialText.style.display === "none" ? "block" : "none";
+//       //historial > estilo > estilo display
+
+//     if (mostrando) {
+//       renderizarHistorial();
+//     }
+//   });
+
+// //renderizar el historial
+// function renderizarHistorial() {
+//   const historial = document.querySelector("#transacciones");
+//   historial.innerHTML = ""; //esto limpia el historial antes de renderizar
+
+// const h4 = document.createElement("h4"); //crea un elemento h4
+// h4.textContent = `Ultimos Movimientos`; // el texto del h4
+// historial.appendChild(h4); //agrega el h4 a #transacciones > historial
+
+//   transacciones.forEach((transaccion) => {
+//     const li = document.createElement("li"); //crea un li
+//     li.textContent = `${transaccion.descripcion}: ${transaccion.monto} (${transaccion.tipo})`;
+//     //li.texcontent(el texto del li) = `$(variabletransaccion.valordescripcion)`
+
+//     historial.appendChild(li); //lo sube como hijo al historial html
+//   });
+// }
+
+// //filtrar transaccion
+// const filtroSelect = document.querySelector("#filtro");
+// filtroSelect.addEventListener("change", function () {
+//   renderizarTransacciones(filtroSelect.value.toLowerCase());
+// });
+
+// //al cargar la página, renderiza transacciones
+// renderizarTransacciones(); //esto muestra/ renderiza las transacciones
+// calcularSaldo(); //calcula el saldo cada vez que se ejecuta la pagina.
+
+//codigo 3
+
+//Form
+// let transacciones = [];
+
+// const form = document.querySelector("#form");
+// const montoInput = document.getElementById("formMonto");
+// const descripcionInput = document.getElementById("descripción");
+// const tipoSelect = document.getElementById("tipo");
+
+// form.addEventListener("submit", function (event) {
+//   event.preventDefault(); //sin esto se me reinicia la pagina
+
+//   const monto = parseFloat(montoInput.value);
+//   const descripcion = descripcionInput.value.trim();
+//   const tipo = tipoSelect.value;
+
+//   // Validación que el usuario ingrese bien los datos
+//   if (isNaN(monto) || monto <= 0) {
+//     Swal.fire({
+//       icon: "question",
+//       title: "Por favor",
+//       text: "Ingresa un monto válido!",
+//       timer: 1500,
+//       showConfirmButton: false,
+//     });
+//     return;
+//   }
+//   if (descripcion === "") {
+//     Swal.fire({
+//       icon: "error",
+//       title: "Oops...",
+//       text: "La descripción no puede estar vacía!",
+//       timer: 1500,
+//       showConfirmButton: false,
+//     });
+//     return;
+//   }
+
+//   const saldoActual = calcularSaldo();
+
+//   if (tipo === "gasto" && saldoActual - monto < 0) {
+//     Swal.fire({
+//       icon: "error",
+//       title: "Oops...",
+//       text: "No puedes ingresar un gasto cuando tu saldo es 0!",
+//       timer: 1500,
+//       showConfirmButton: false,
+//     });
+//     return;
+//   }
+
+//   const transaccion = { tipo, monto, descripcion };
+//   transacciones.push(transaccion); // Agrega la transacción al array del inicio
+//   localStorage.setItem("transacciones", JSON.stringify(transacciones));
+//   renderizarTransacciones();
+//   calcularSaldo();
+//   form.reset();
+// });
+
+// // Carga las transacciones cuando abrimos la pagina
+// if (localStorage.getItem("transacciones")) {
+//   transacciones = JSON.parse(localStorage.getItem("transacciones")); //trae las transacciones guardadas
+// }
+
+// // Muestra las transacciones
+// function renderizarTransacciones(filtro = "todos") {
+//   const listaTransacciones = document.querySelector("#transacciones");
+//   listaTransacciones.innerHTML = ""; // Limpia la lista antes de renderizar
+
+//   transacciones.forEach((transaccion, index) => {
+//     if (filtro === "todos" || transaccion.tipo.toLowerCase() === filtro) {
+//       const li = document.createElement("li");
+//       li.textContent = `${transaccion.descripcion}: ${transaccion.monto}`;
+//       li.className =
+//         transaccion.tipo.toLowerCase() === "ingreso" ? "ingreso" : "gasto";
+
+//       // Botón para eliminar
+//       const btnEliminar = document.createElement("button");
+//       btnEliminar.textContent = "Eliminar";
+//       btnEliminar.addEventListener("click", () => eliminarTransaccion(index));
+//       li.appendChild(btnEliminar);
+
+//       // Botón para editar
+//       const btnEditar = document.createElement("button");
+//       btnEditar.textContent = "Editar";
+//       btnEditar.addEventListener("click", () => editarTransaccion(index));
+//       li.appendChild(btnEditar);
+
+//       listaTransacciones.appendChild(li);
+//     }
+//   });
+// }
+
+// // Calcular y mostrar saldo
+// function calcularSaldo() {
+//   const totalIngresos = transacciones.reduce(
+//     (sum, transaccion) =>
+//       transaccion.tipo.toLowerCase() === "ingreso"
+//         ? sum + transaccion.monto
+//         : sum,
+//     0
+//   );
+//   const totalGastos = transacciones.reduce(
+//     (sum, transaccion) =>
+//       transaccion.tipo.toLowerCase() === "gasto"
+//         ? sum + transaccion.monto
+//         : sum,
+//     0
+//   );
+
+//   const saldo = totalIngresos - totalGastos;
+
+//   if (saldo < 0) {
+//     Swal.fire({
+//       icon: "error",
+//       title: "Oops...",
+//       text: "El saldo de tu cuenta no puede ser un número negativo.",
+//       timer: 1500,
+//       showConfirmButton: false,
+//     });
+//     return 0; // Devuelve 0 si el saldo es negativo
+//   }
+
+//   document.querySelector("#saldo").textContent = saldo;
+//   return saldo;
+// }
+
+// // Function para eliminar transacción
+// function eliminarTransaccion(index) {
+//   transacciones.splice(index, 1); //elimina la transacción del array
+//   localStorage.setItem("transacciones", JSON.stringify(transacciones)); //actualiza localStorage
+//   renderizarTransacciones(); //vuelve a mostrar
+//   calcularSaldo(); //actualiza el saldo
+// }
+
+// // Function para editar transacciónes
+// function editarTransaccion(index) {
+//   montoInput.value = transacciones[index].monto; //rellena el monto
+//   descripcionInput.value = transacciones[index].descripcion; //rellena la descripción
+//   tipoSelect.value = transacciones[index].tipo; //
+//   eliminarTransaccion(index); //elimina la transacción para que se agregue de nuevo al guardar
+// }
+
+// //HISTORIAL
+// document
+//   .querySelector("#toggleHistorial")
+//   .addEventListener("click", function () {
+//     const historial = document.querySelector("#transacciones");
+//     const mostrando =
+//       historial.style.display === "none" || historial.style.display === "";
+//     historial.style.display =
+//       historial.style.display === "none" ? "block" : "none";
+//     if (mostrando) {
+//       renderizarHistorial();
+//     }
+//   });
+
+// //funcion renderizar historial
+// function renderizarTransacciones(filtro = "todos") {
+//   const listaTransacciones = document.querySelector("#transacciones");
+//   listaTransacciones.innerHTML = "";
+
+//   transacciones.forEach((transaccion, index) => {
+//     if (filtro === "todos" || transaccion.tipo.toLowerCase() === filtro) {
+//       const li = document.createElement("li");
+//       li.textContent = `${transaccion.descripcion}: ${transaccion.monto}`;
+
+//       // Asigna clase según el tipo de transacción
+//       li.className =
+//         transaccion.tipo.toLowerCase() === "ingreso" ? "ingreso" : "gasto";
+
+//       const btnEliminar = document.createElement("button");
+//       btnEliminar.textContent = "Eliminar";
+//       btnEliminar.addEventListener("click", () => eliminarTransaccion(index));
+//       li.appendChild(btnEliminar);
+
+//       const btnEditar = document.createElement("button");
+//       btnEditar.textContent = "Editar";
+//       btnEditar.addEventListener("click", () => editarTransaccion(index));
+//       li.appendChild(btnEditar);
+
+//       listaTransacciones.appendChild(li);
+//     }
+//   });
+// }
+
+// //filtrar transaccion
+// const filtroSelect = document.querySelector("#filtro");
+// filtroSelect.addEventListener("change", function () {
+//   renderizarTransacciones(filtroSelect.value.toLowerCase());
+// });
+
+// //al cargar la página, renderiza transacciones
+// renderizarTransacciones(); //esto muestra/ renderiza las transacciones
+// calcularSaldo(); //calcula el saldo cada vez que se ejecuta la pagina,
+
+
+// fetch("https://dolarapi.com/v1/dolares/blue")
+//   .then(response => response.json())
+//   .then(data => console.log(data));
+
+//   async function getPrecioDolar(saldoActual) {
+//     let precioDolar = 0;
+  
+//     try {
+//       const response = await fetch("https://dolarapi.com/v1/dolares/blue");
+//       if (!response.ok) {
+//         throw new Error(`Caída en la red: ${response.status}`);
+//       }
+  
+//       const data = await response.json();
+//       precioDolar = data.venta;
+  
+//       if (typeof saldoActual === 'undefined' || isNaN(saldoActual)) {
+//         throw new Error("El saldo actual no es válido.");
+//       }
+  
+//       const saldoUsd = saldoActual / precioDolar;
+//       let h3Saldo = document.querySelector("#saldoUsd");
+//       h3Saldo.innerText = `Equivalente en USD (Dólar Blue): $ ${saldoUsd.toFixed(2)}`;
+  
+//     } catch (err) {
+//       let h3Saldo = document.querySelector("#saldoUsd");
+//       h3Saldo.innerText = `Equivalencia a USD no disponible`;
+//       console.error("Error al obtener el precio del dólar:", err);
+//     } finally {
+//       console.log("Proceso de obtención del dólar finalizado");
+//     }
+//   }
+  
+//   getPrecioDolar();
+//Codigo 4
+// let transacciones = [];
+
+// const form = document.querySelector("#form");
+// const montoInput = document.getElementById("formMonto");
+// const descripcionInput = document.getElementById("descripción");
+// const tipoSelect = document.getElementById("tipo");
+
+// form.addEventListener("submit", function (event) {
+//   event.preventDefault(); // Sin esto se me reinicia la página
+
+//   const monto = parseFloat(montoInput.value);
+//   const descripcion = descripcionInput.value.trim();
+//   const tipo = tipoSelect.value;
+
+//   // Validación que el usuario ingrese bien los datos
+//   if (isNaN(monto) || monto <= 0) {
+//     Swal.fire({
+//       icon: "question",
+//       title: "Por favor",
+//       text: "Ingresa un monto válido!",
+//       timer: 1500,
+//       showConfirmButton: false,
+//     });
+//     return;
+//   }
+//   if (descripcion === "") {
+//     Swal.fire({
+//       icon: "error",
+//       title: "Oops...",
+//       text: "La descripción no puede estar vacía!",
+//       timer: 1500,
+//       showConfirmButton: false,
+//     });
+//     return;
+//   }
+
+//   const saldoActual = calcularSaldo();
+
+//   if (tipo === "gasto" && saldoActual - monto < 0) {
+//     Swal.fire({
+//       icon: "error",
+//       title: "Oops...",
+//       text: "No puedes ingresar un gasto cuando tu saldo es 0!",
+//       timer: 1500,
+//       showConfirmButton: false,
+//     });
+//     return;
+//   }
+
+//   const transaccion = { tipo, monto, descripcion };
+//   transacciones.push(transaccion); // Agrega la transacción al array del inicio
+//   localStorage.setItem("transacciones", JSON.stringify(transacciones));
+//   renderizarTransacciones();
+//   calcularSaldo();
+//   form.reset();
+// getPrecioDolar(saldoActual);
+//   // Llama getPrecioDolar después de calcular el saldo
+  
+// });
+
+// // Carga las transacciones cuando abrimos la página
+// if (localStorage.getItem("transacciones")) {
+//   transacciones = JSON.parse(localStorage.getItem("transacciones")); // Trae las transacciones guardadas
+// }
+
+// // Muestra las transacciones
+// function renderizarTransacciones(filtro = "todos") {
+//   const listaTransacciones = document.querySelector("#transacciones");
+//   listaTransacciones.innerHTML = ""; // Limpia la lista antes de renderizar
+
+//   transacciones.forEach((transaccion, index) => {
+//     if (filtro === "todos" || transaccion.tipo.toLowerCase() === filtro) {
+//       const li = document.createElement("li");
+//       li.textContent = `${transaccion.descripcion}: ${transaccion.monto}`;
+//       li.className =
+//         transaccion.tipo.toLowerCase() === "ingreso" ? "ingreso" : "gasto";
+
+//       // Botón para eliminar
+//       const btnEliminar = document.createElement("button");
+//       btnEliminar.textContent = "Eliminar";
+//       btnEliminar.addEventListener("click", () => eliminarTransaccion(index));
+//       li.appendChild(btnEliminar);
+
+//       // Botón para editar
+//       const btnEditar = document.createElement("button");
+//       btnEditar.textContent = "Editar";
+//       btnEditar.addEventListener("click", () => editarTransaccion(index));
+//       li.appendChild(btnEditar);
+
+//       listaTransacciones.appendChild(li);
+//     }
+//   });
+// }
+
+// // Calcular y mostrar saldo
+// function calcularSaldo() {
+//   const totalIngresos = transacciones.reduce(
+//     (sum, transaccion) =>
+//       transaccion.tipo.toLowerCase() === "ingreso"
+//         ? sum + transaccion.monto
+//         : sum,
+//     0
+//   );
+//   const totalGastos = transacciones.reduce(
+//     (sum, transaccion) =>
+//       transaccion.tipo.toLowerCase() === "gasto"
+//         ? sum + transaccion.monto
+//         : sum,
+//     0
+//   );
+
+//   const saldo = totalIngresos - totalGastos;
+
+//   if (saldo < 0) {
+//     Swal.fire({
+//       icon: "error",
+//       title: "Oops...",
+//       text: "El saldo de tu cuenta no puede ser un número negativo.",
+//       timer: 1500,
+//       showConfirmButton: false,
+//     });
+//     return 0; // Devuelve 0 si el saldo es negativo
+//   }
+
+//   document.querySelector("#saldo").textContent = saldo;
+//   return saldo;
+// }
+
+// // Función para eliminar transacción
+// function eliminarTransaccion(index) {
+//   transacciones.splice(index, 1); // Elimina la transacción del array
+//   localStorage.setItem("transacciones", JSON.stringify(transacciones)); // Actualiza localStorage
+//   renderizarTransacciones(); // Vuelve a mostrar
+//   calcularSaldo(); // Actualiza el saldo
+// }
+
+// // Función para editar transacciones
+// function editarTransaccion(index) {
+//   montoInput.value = transacciones[index].monto; // Rellena el monto
+//   descripcionInput.value = transacciones[index].descripcion; // Rellena la descripción
+//   tipoSelect.value = transacciones[index].tipo; // Rellena el tipo
+//   eliminarTransaccion(index); // Elimina la transacción para que se agregue de nuevo al guardar
+// }
+
+// // HISTORIAL
+// document
+//   .querySelector("#toggleHistorial")
+//   .addEventListener("click", function () {
+//     const historial = document.querySelector("#transacciones");
+//     const mostrando =
+//       historial.style.display === "none" || historial.style.display === "";
+//     historial.style.display =
+//       historial.style.display === "none" ? "block" : "none";
+//     if (mostrando) {
+//       renderizarHistorial();
+//     }
+//   });
+
+// // Filtrar transacción
+// const filtroSelect = document.querySelector("#filtro");
+// filtroSelect.addEventListener("change", function () {
+//   renderizarTransacciones(filtroSelect.value.toLowerCase());
+// });
+
+// // Al cargar la página, renderiza transacciones
+// renderizarTransacciones(); // Esto muestra/ renderiza las transacciones
+// calcularSaldo(); // Calcula el saldo cada vez que se ejecuta la página
+
+// async function getPrecioDolar(saldoActual) {
+//   let precioDolar = 0;
+
+//   try {
+//     const response = await fetch("https://dolarapi.com/v1/dolares/blue");
+//     if (!response.ok) {
+//       throw new Error(`Caída en la red: ${response.status}`);
+//     }
+
+//     const data = await response.json();
+//     precioDolar = data.venta;
+
+//     if (typeof saldoActual === 'undefined' || isNaN(saldoActual)) {
+//       throw new Error("El saldo actual no es válido.");
+//     }
+
+//     const saldoUsd = saldoActual / precioDolar;
+//     let h3Saldo = document.querySelector("#saldoUsd");
+//     h3Saldo.innerText = `Equivalente en USD (Dólar Blue): $ ${saldoUsd.toFixed(2)}`;
+
+//   } catch (err) {
+//     let h3Saldo = document.querySelector("#saldoUsd");
+//     h3Saldo.innerText = `Equivalencia a USD no disponible`;
+//     console.error("Error al obtener el precio del dólar:", err);
+//   } finally {
+//     console.log("Proceso de obtención del dólar finalizado");
+//   }
+// }
+
+// // Inicializa la obtención del precio del dólar al cargar la página
+// getPrecioDolar(calcularSaldo());
+//codigo 5
+// let transacciones = [];
+
+// const form = document.querySelector("#form");
+// const montoInput = document.getElementById("formMonto");
+// const descripcionInput = document.getElementById("descripción");
+// const tipoSelect = document.getElementById("tipo");
+
+// form.addEventListener("submit", function (event) {
+//   event.preventDefault(); // Sin esto se me reinicia la página
+
+//   const monto = parseFloat(montoInput.value);
+//   const descripcion = descripcionInput.value.trim();
+//   const tipo = tipoSelect.value;
+
+//   // Validación que el usuario ingrese bien los datos
+//   if (isNaN(monto) || monto <= 0) {
+//     Swal.fire({
+//       icon: "question",
+//       title: "Por favor",
+//       text: "Ingresa un monto válido!",
+//       timer: 1500,
+//       showConfirmButton: false,
+
+//     });
+//     return;
+//   }
+//   if (descripcion === "") {
+//     Swal.fire({
+//       icon: "error",
+//       title: "Oops...",
+//       text: "La descripción no puede estar vacía!",
+//       timer: 1500,
+//       showConfirmButton: false,
+//     });
+//     return;
+//   }
+
+//   const saldoActual = calcularSaldo();
+
+//   if (tipo === "gasto" && saldoActual - monto < 0) {
+//     Swal.fire({
+//       icon: "error",
+//       title: "Oops...",
+//       text: "No puedes ingresar un gasto cuando tu saldo es 0!",
+//       timer: 1500,
+//       showConfirmButton: false,
+//     });
+//     return;
+//   }
+
+//   const transaccion = { tipo, monto, descripcion };
+//   transacciones.push(transaccion); // Agrega la transacción al array del inicio
+//   localStorage.setItem("transacciones", JSON.stringify(transacciones));
+//   renderizarTransacciones();
+//   calcularSaldo();
+//   form.reset();
+
+//   // Actualiza el saldo en USD
+//   getPrecioDolar(saldoActual);
+// });
+
+// // Carga las transacciones cuando abrimos la página
+// if (localStorage.getItem("transacciones")) {
+//   transacciones = JSON.parse(localStorage.getItem("transacciones")); // Trae las transacciones guardadas
+// }
+
+// // Muestra las transacciones
+// function renderizarTransacciones(filtro = "todos") {
+//   const listaTransacciones = document.querySelector("#transacciones");
+//   listaTransacciones.innerHTML = ""; // Limpia la lista antes de renderizar
+
+//   transacciones.forEach((transaccion, index) => {
+//     if (filtro === "todos" || transaccion.tipo.toLowerCase() === filtro) {
+//       const li = document.createElement("li");
+//       li.textContent = `${transaccion.descripcion}: ${transaccion.monto}`;
+//       li.className =
+//         transaccion.tipo.toLowerCase() === "ingreso" ? "ingreso" : "gasto";
+
+//       // Botón para eliminar
+//       const btnEliminar = document.createElement("button");
+//       btnEliminar.textContent = "Eliminar";
+//       btnEliminar.addEventListener("click", () => {
+//         eliminarTransaccion(index);
+//         const saldoActual = calcularSaldo();
+//         getPrecioDolar(saldoActual); // Actualiza el saldo en USD después de eliminar
+//       });
+//       li.appendChild(btnEliminar);
+//       listaTransacciones.appendChild(li);
+//     }
+//   });
+// }
+
+// // Calcular y mostrar saldo
+// function calcularSaldo() {
+//   const totalIngresos = transacciones.reduce(
+//     (sum, transaccion) =>
+//       transaccion.tipo.toLowerCase() === "ingreso"
+//         ? sum + transaccion.monto
+//         : sum,
+//     0
+//   );
+//   const totalGastos = transacciones.reduce(
+//     (sum, transaccion) =>
+//       transaccion.tipo.toLowerCase() === "gasto"
+//         ? sum + transaccion.monto
+//         : sum,
+//     0
+//   );
+
+//   const saldo = totalIngresos - totalGastos;
+
+//   if (saldo < 0) {
+//     Swal.fire({
+//       icon: "error",
+//       title: "Oops...",
+//       text: "El saldo de tu cuenta no puede ser un número negativo.",
+//       timer: 1500,
+//       showConfirmButton: false,
+//     });
+//     return 0; // Devuelve 0 si el saldo es negativo
+//   }
+
+//   document.querySelector("#saldo").textContent = saldo;
+//   return saldo;
+// }
+
+// // Función para eliminar transacción
+// function eliminarTransaccion(index) {
+//   transacciones.splice(index, 1); // Elimina la transacción del array
+//   localStorage.setItem("transacciones", JSON.stringify(transacciones)); // Actualiza localStorage
+//   renderizarTransacciones(); // Vuelve a mostrar
+//   calcularSaldo(); // Actualiza el saldo
+// }
+
+
+// // HISTORIAL
+// document
+//   .querySelector("#toggleHistorial")
+//   .addEventListener("click", function () {
+//     const historial = document.querySelector("#transacciones");
+//     const mostrando =
+//       historial.style.display === "none" || historial.style.display === "";
+//     historial.style.display =
+//       historial.style.display === "none" ? "block" : "none";
+//     if (mostrando) {
+//       getPrecioDolar(saldoActual);
+//       renderizarHistorial();
+//     }
+//   });
+
+// // Filtrar transacción
+// const filtroSelect = document.querySelector("#filtro");
+// filtroSelect.addEventListener("change", function () {
+//   renderizarTransacciones(filtroSelect.value.toLowerCase());
+// });
+
+// // Al cargar la página, renderiza transacciones
+// renderizarTransacciones(); // Esto muestra/ renderiza las transacciones
+// const saldoActualInicial = calcularSaldo(); // Calcula el saldo inicial
+// getPrecioDolar(saldoActualInicial); // Obtiene el saldo en USD al cargar la página
+
+
+
+// //precio dolar / saldo en usd
+// async function getPrecioDolar(saldoActual) {
+//   let precioDolar = 0;
+
+//   try {
+//     const response = await fetch("https://dolarapi.com/v1/dolares/blue");
+//     if (!response.ok) {
+//       throw new Error(`Caída en la red: ${response.status}`);
+//     }
+
+//     const data = await response.json();
+//     precioDolar = data.venta;
+
+//     if (typeof saldoActual === 'undefined' || isNaN(saldoActual)) {
+//       throw new Error("El saldo actual no es válido.");
+//     }
+
+//     const saldoUsd = saldoActual / precioDolar;
+//     let h3Saldo = document.querySelector("#saldoUsd");
+//     h3Saldo.innerText = `Equivalente en USD: $ ${saldoUsd.toFixed(2)}`;
+
+//   } catch (err) {
+//     let h3Saldo = document.querySelector("#saldoUsd");
+//     h3Saldo.innerText = `Equivalencia a USD no disponible`;
+//     console.error("Error al obtener el precio del dólar:", err);
+//   } finally {
+//     console.log("Proceso de obtención del dólar finalizado");
+//   }
+// }
+
+//codigo 6
+let transacciones = [];
+
+const form = document.querySelector("#form");
+const montoInput = document.getElementById("formMonto");
+const descripcionInput = document.getElementById("descripción");
+const tipoSelect = document.getElementById("tipo");
+
+
+//submit
+form.addEventListener("submit", function (event) {
   event.preventDefault(); //sin esto se me reinicia la pagina
 
-  const monto = parseFloat(montoInput.value); //recibe el monto y lo transpasa como numero
-  const descripcion = descripcionInput.value.trim(); 
+  const monto = parseFloat(montoInput.value);
+  const descripcion = descripcionInput.value.trim();
   const tipo = tipoSelect.value;
 
-  // Valida que el usuario ingrese bien los datos
-  if (isNaN(monto) || monto <= 0) { //si isnotanumber(monto) o monto igual o menor a 0 tira el alert
-    alert("Por favor, ingresa un monto válido.");
+
+  //fecha del movimiento
+  const fecha = new Date();
+  const dia = fecha.getDate().toString().padStart(2, '0'); 
+  const mes = (fecha.getMonth() + 1).toString().padStart(2, '0');
+
+
+  // Validación que el usuario ingrese bien los datos
+  if (isNaN(monto) || monto <= 0) {
+    Swal.fire({
+      icon: "question",
+      title: "Por favor",
+      text: "Ingresa un monto válido!",
+      timer: 1500,
+      showConfirmButton: false,
+    });
     return;
   }
-  if (descripcion === "") { //si la descripcion esta vacia te tira el alert
-    alert("La descripción no puede estar vacía.");
+  if (descripcion === "") {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "La descripción no puede estar vacía!",
+      timer: 1500,
+      showConfirmButton: false,
+    });
     return;
+
   }
 
-  const transaccion = { tipo, monto, descripcion };
-  transacciones.push(transaccion); // Agrega la transacción al array
-  localStorage.setItem("transacciones", JSON.stringify(transacciones)); // Guarda en localStorage
+  
+
+  const transaccion = { tipo, monto, descripcion,fecha:`${dia}/${mes}` };
+  transacciones.push(transaccion); // Agrega la transacción al array del inicio
+  localStorage.setItem("transacciones", JSON.stringify(transacciones));
   renderizarTransacciones();
   calcularSaldo();
-  form.reset(); // resetea el formulario
+  actualizarSaldoUSD();
+  form.reset();
 });
 
-// recarga las transacciones cuando abrimos la pagina
+// Carga las transacciones cuando abrimos la pagina
 if (localStorage.getItem("transacciones")) {
   transacciones = JSON.parse(localStorage.getItem("transacciones")); //trae las transacciones guardadas
 }
 
-// muestra las transacciones
-function renderizarTransacciones(filtro = "todos") {
-  const listaTransacciones = document.querySelector("#transacciones");
-  listaTransacciones.innerHTML = ""; // Limpia la lista antes de renderizar
-
-  transacciones.forEach((transaccion, index) => {
-    if (filtro === "todos" || transaccion.tipo.toLowerCase() === filtro) {
-      const li = document.createElement("li");
-      li.textContent = `${transaccion.descripcion}: ${transaccion.monto}`;
-      li.className =
-        transaccion.tipo.toLowerCase() === "ingreso" ? "ingreso" : "gasto";
-
-      //boton para eliminar
-      const btnEliminar = document.createElement("button"); //crea el button
-      btnEliminar.textContent = "Eliminar"; //este es el texto del button
-      btnEliminar.addEventListener("click", () => eliminarTransaccion(index));
-      li.appendChild(btnEliminar);
-
-      //button para editar
-      const btnEditar = document.createElement("button");
-      btnEditar.textContent = "Editar";
-      btnEditar.addEventListener("click", () => editarTransaccion(index)); //evento para editar
-      li.appendChild(btnEditar);
-
-      listaTransacciones.appendChild(li); // Agrega el nuevo elemento a la lista
-    }
-  });
-}
-
-//calcular y mostrar saldo
+// Calcular y mostrar saldo
 function calcularSaldo() {
   const totalIngresos = transacciones.reduce(
     (sum, transaccion) =>
-      transaccion.tipo === "Ingreso" ? sum + transaccion.monto : sum,
+      transaccion.tipo.toLowerCase() === "ingreso"
+        ? sum + transaccion.monto
+        : sum,
     0
   );
   const totalGastos = transacciones.reduce(
     (sum, transaccion) =>
-      transaccion.tipo === "Gasto" ? sum + transaccion.monto : sum,
+      transaccion.tipo.toLowerCase() === "gasto"
+        ? sum + transaccion.monto
+        : sum,
     0
   );
+
   const saldo = totalIngresos - totalGastos;
-  if (saldo <= 0) { //ifSI saldo <= 0 genera un alert
-    alert("El Saldo de tu cuenta no puede ser un numero negativo");
+  
+
+  if (saldo < 0) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El saldo de tu cuenta no puede ser un número negativo.",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+    return 0; // Devuelve 0 si el saldo es negativo
+  
   }
-  document.querySelector("#saldo").textContent = saldo;
+
+  document.querySelector("#saldo").textContent = "$ " + saldo;
+  return saldo;
 }
 
-//function para eliminar transacción
+
+// Function para eliminar transacción
 function eliminarTransaccion(index) {
   transacciones.splice(index, 1); //elimina la transacción del array
-  localStorage.setItem("transacciones", JSON.stringify(transacciones)); //actualiza localStorage
-  renderizarTransacciones(); //vuelve a mostrar
-  calcularSaldo(); //actualiza el saldo
+  localStorage.setItem("transacciones", JSON.stringify(transacciones));
+  renderizarTransacciones(); 
+  calcularSaldo(); 
+  actualizarSaldoUSD(); 
 }
 
-//funcion para editar transacciónes
-function editarTransaccion(index) {
-  montoInput.value = transacciones[index].monto; //rellena el monto
-  descripcionInput.value = transacciones[index].descripcion; //rellena ladescripción
-  tipoSelect.value = transacciones[index].tipo; //
-  eliminarTransaccion(index); //elimina la transacción para que se agregue de nuevo al guardar
-}
-
-//Historial
-document.querySelector("#toggleHistorial").addEventListener("click", function () {
-    const historial = document.querySelector("#transacciones"); //selecciona el historial
-    //constante nombreconstante = document(html).queryselector(seleccionador)("#nombre")
-
+// HISTORIAL
+document
+  .querySelector("#toggleHistorial")
+  .addEventListener("click", function () {
+    const historial = document.querySelector("#transacciones");
+    const filtroSelect = document.querySelector("select#filtro");
     const mostrando =
       historial.style.display === "none" || historial.style.display === "";
-      //verificacion para ver si esta oculto el historial
 
-    historial.style.display =
-      historial.style.display === "none" ? "block" : "none";
-      historialText.style.display === "none" ? "block" : "none";
-      //historial > estilo > estilo display 
+    historial.style.display = mostrando ? "block" : "none";
+    filtroSelect.style.display = mostrando ? "block" : "none";
 
     if (mostrando) {
       renderizarHistorial();
     }
   });
 
-//renderizar el historial
-function renderizarHistorial() {
-  const historial = document.querySelector("#transacciones");
-  historial.innerHTML = ""; //esto limpia el historial antes de renderizar
 
-const h4 = document.createElement("h4"); //crea un elemento h4
-h4.textContent = `Ultimos Movimientos`; // el texto del h4
-historial.appendChild(h4); //agrega el h4 a #transacciones > historial
+//funcion renderizar historial
+function renderizarTransacciones(filtro = "todos") {
+  const listaTransacciones = document.querySelector("#transacciones");
+  listaTransacciones.innerHTML = "";
 
-  transacciones.forEach((transaccion) => {
-    const li = document.createElement("li"); //crea un li
-    li.textContent = `${transaccion.descripcion}: ${transaccion.monto} (${transaccion.tipo})`; 
-    //li.texcontent(el texto del li) = `$(variabletransaccion.valordescripcion)`
+  transacciones.forEach((transaccion, index) => {
+    if (filtro === "todos" || transaccion.tipo.toLowerCase() === filtro) {
+      const li = document.createElement("li");
+      li.textContent = `${transaccion.fecha} | ${transaccion.descripcion.toUpperCase()} : ${transaccion.monto}`;
 
-    historial.appendChild(li); //lo sube como hijo al historial html
+      li.className =
+        transaccion.tipo.toLowerCase() === "ingreso" ? "ingreso" : "gasto";
+
+      const btnEliminar = document.createElement("button");
+      btnEliminar.textContent = "Eliminar";
+      btnEliminar.addEventListener("click", () => eliminarTransaccion(index));
+      li.appendChild(btnEliminar);
+
+      listaTransacciones.appendChild(li);
+    }
   });
 }
 
@@ -744,4 +1530,96 @@ filtroSelect.addEventListener("change", function () {
 
 //al cargar la página, renderiza transacciones
 renderizarTransacciones(); //esto muestra/ renderiza las transacciones
-calcularSaldo(); //calcula el saldo cada vez que se ejecuta la pagina.
+calcularSaldo(); //calcula el saldo cada vez que se ejecuta la pagina
+
+
+
+//equivalente en usd
+async function getPrecioDolar() {
+  let precioDolar = 0;
+
+  try {
+    const response = await fetch("https://dolarapi.com/v1/dolares/blue");
+    if (!response.ok) {
+      throw new Error(`Caída en la red: ${response.status}`);
+    }
+
+    const data = await response.json();
+    precioDolar = data.venta;
+
+    return precioDolar;
+
+  } catch (err) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'No se pudo obtener el precio del dólar.',
+      confirmButtonText: "Entendido"
+  });
+  }
+}
+
+// Función para actualizar el saldo en USD
+async function actualizarSaldoUSD() {
+  const saldoActual = calcularSaldo();
+  const precioDolar = await getPrecioDolar();
+  if (precioDolar) {
+    const saldoUsd = saldoActual / precioDolar;
+    let h3Saldo = document.querySelector("#saldoUsd");
+    h3Saldo.innerText = `Equivalente en USD (Dólar Blue): $ ${saldoUsd.toFixed(2)}`;
+  }
+}
+
+actualizarSaldoUSD();
+
+
+
+//usd compra y venta 
+async function obtenerValoresDolar() {
+  try {
+    const response = await fetch("https://dolarapi.com/v1/dolares/blue");
+    
+    if (!response.ok) {
+      throw new Error(`Error en la API: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    console.log("Datos de la API:", data);
+
+    if (data.compra && data.venta) {
+      document.getElementById("compraDolar").textContent = data.compra.toFixed(2);
+      document.getElementById("ventaDolar").textContent = data.venta.toFixed(2);
+      
+    } else {
+       }
+  } catch (err) {
+    console.error("Error cuando se intento obtener el valor del dólar:", err);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'No se pudo obtener el precio del dólar.',
+      confirmButtonText: "Entendido"
+    });
+  }
+}
+
+// Llama a la función para obtener y mostrar los valores del dólar en la carga de la página
+obtenerValoresDolar();
+
+
+// Llama a la función para obtener y mostrar los valores del dólar en la carga de la página
+obtenerValoresDolar();
+
+//resumen
+document.getElementById("resumenCuenta").addEventListener("click", () => {
+  if (localStorage.getItem("sesionIniciada") === "true") {
+      window.location.href = "resumen.html"; 
+  } else {
+      Swal.fire({
+          icon: "warning",
+          title: "No estás logueado",
+          text: "Por favor, inicia sesión para acceder al resumen de cuenta.",
+      });
+  }
+});

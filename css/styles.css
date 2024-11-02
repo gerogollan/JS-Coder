@@ -1,78 +1,194 @@
-
 .oswald-<uniquifier> {
     font-family: "Oswald", sans-serif;
     font-optical-sizing: auto;
     font-weight: <weight>;
     font-style: normal;
-  }
+}
 
-
-text{text-shadow: 1px black;}
+text {
+    text-shadow: 1px black;
+}
 
 body {
     font-family: "Oswald";
-    background-color:#33334d;
-    background-image: linear-gradient(45deg, #3334d4, #34d499);;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
-
+    background-color: #1a1a1a;
     display: flex;
     flex-direction: column;
     align-items: center; 
     justify-content: center;
-    margin: 0; /* Eliminar el margen por defecto */
-    color: white; /* Color de texto general */
+    margin: 0;
+    color: white;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background-image: linear-gradient(75deg, #1a1a1a, #34d499);
+    /* background-image: linear-gradient(45deg, #3334d4, #34d499); */
+    background-size: auto;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    box-shadow:
+    inset 0 10px 10px rgba(0, 0, 0, 0.3), 
+    inset 0 -10px 10px rgba(0, 0, 0, 0.3);
+
+}
+
+header {
+    
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px; 
+        background-color: #1a1a1a; 
+        position: relative
+        
 }
 
 
-#SectionTransacciones{
+
+#SectionTransacciones {
     margin-top: 30px;
     padding-top: 0px;
     padding-bottom: 10px;
-    background-color: rgb(255, 255, 255);
+    background-color:#1a1a1a;
     text-transform: uppercase;
     font-weight: 500;
-    border-radius:20px;
+    border-radius: 20px;
+}
+
+#SectionSaldo {
+    margin-top: 50px;
+}
+
+#saldo{
+   background-image: linear-gradient(45deg, #1a1a1a, #34d499);
+   border-radius: 15px;
+   display: flex;
+   background-color: #1a1a1a;
+   padding: 0px 5px;
+
+}
+
+#saldoUsd{
+    font-weight: lighter;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    margin:3px 0px 20px 0px;
 }
 
 h1 {
+    background-color: #1a1a1a;
+    text-decoration: underline;
+    text-decoration-color: #34d499;
+    padding-right: 400px;
     font-size: 30px;
     color: white;
     text-transform: uppercase;
-    margin-top: 20px; 
+    text-shadow: 0px 4px 12px rgba(7, 224, 141, 0.489);
+}
+
+h1 a{
+    color: white;
+}
+
+header h2 {
+    background-color: #1a1a1a;
+    color: rgb(255, 255, 255);
+    justify-content: center;
+    font-size: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-h2 {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    color: white;
-    font-size: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
-}
-
-h3{
-    margin-top: 0px;
+h3 {
+    width:300px ;
+    margin-bottom: 0px;
     font-size: 17px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
-}
-h4{
-    display: flex;
-    justify-content: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    
 }
 
-/* Estilo para el formulario y la lista */
+h4 {
+    display: flex;
+    justify-content: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#containerNumeroCuenta{
+    font-size: 10px;
+}
+
 form {
     margin-bottom: 20px;
+    margin-top: 50px;
     padding: 5px;
     border-radius: 15px;
-    background-color: rgb(255, 255, 255);
+    background-color:#1a1a1a;
+    align-items: center;
 }
 
-input{
+#butonera{
+    margin-bottom: 5px;
+}
+
+a{
+    text-decoration: none;
+    color: #000000;
+}
+
+#compraVentaDolar{
+    border-radius: 15px;
+    display: flex;
+    background-color: #1a1a1a;
+    padding: 0px 5px;
+}
+
+#usdVenta{
+    margin-left: 5px;
+}
+#usdCompra{
+    margin-right: 5px;
+}
+
+#usdCompra span{
+    text-shadow: 2px 2px 12px rgba(7, 224, 141, 0.72);
+    color: #34d499;
+}
+#usdVenta span{
+    text-shadow: 2px 2px 12px rgba(7, 224, 141, 0.72);
+    color: #34d499;
+}
+
+
+#h3Total{
+    background-color: #1a1a1a;
+    text-decoration: underline;
+    text-decoration-color: #34d499;
+    color: white;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 12px rgba(7, 224, 141, 0.489);
+    padding: 5px 15px;
+    border-radius: 15px;
+}
+
+
+#h3Fecha{
+    margin: 50px 0px 20px 0px;
+background-color: #1a1a1a;
+    padding: 5px 15px;
+    border-radius: 15px;}
+
+#fechaActual{
+    display: inline;
+    margin-left: 15px;
+    
+}
+
+input {
     padding: 4px;
 }
 
@@ -81,55 +197,107 @@ input, select {
 }
 
 button {
+    padding:4px;
+    border-style: inset;
+    border-color: buttonborder;
+    border-width: 2px;
+    border-radius: 15px;
+    border-color: light-dark(rgb(118, 118, 118), rgb(0, 0, 0));
     margin-left: 5px;
     padding: 5px 10px;
-    border-radius: 15px
+    border-radius: 15px;
 }
 
-li button{
+li button {
     justify-content: end;
 }
 
-ul{
-    padding-left: 0px;
+ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 0;
 }
+
 li {
     font-size: 13px;
     display: flex;
     justify-content: space-between;
-    margin: 5px 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5)
+    margin: 5px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-ul button{
+ul button {
     display: grid;
-justify-content: right;
+    justify-content: right;
 }
 
-input{
+input {
     border-radius: 15px;
 }
 
-select{
+select {
     padding: 4px;
 }
-select#tipo{
+
+select#tipo {
+    padding:4px;
+    border-style: inset;
+    border-color: buttonborder;
+    border-width: 2px;
     border-radius: 15px;
+    border-color: light-dark(rgb(118, 118, 118), rgb(0, 0, 0));
 }
 
-select#filtro{
+select#filtro {
+    display: none;
     border-radius: 15px;
-    margin-top: 20px;
+    margin: 5px 0px 0px 0px;
+    border-bottom-color: black;
+    border-width: 2px;
 }
 
-footer{
-margin-top: 20px;
+#logoutButton {
+    box-shadow: 2px 2px 12px rgba(7, 224, 141, 0.489);
+    margin: 10px 0px;
+}
+
+footer {
+    color: white;
+    justify-content: center;
+    justify-items: center;
+    width: 100%;
+    background-color:#1a1a1a;
+    color: #000000;
+    padding-top: 10px;
+    display: block;
+    align-items: center;
+    padding-bottom: 5px;
+    
+}
+
+footer div{
+    
+    text-transform: uppercase;
+    color: white;
+    margin-bottom: 10px;
+}
+
+
+
+#transacciones {
+    width: 459px;
+    background-color: #1a1a1a;
+    border-radius: 15px;
+    padding: 10px;
+    margin-top: 5px;
 }
 
 .ingreso {
-    color: green; /* Color para ingresos */
+    color: rgb(52, 212, 153);
+    text-shadow: 0px 2px 12px rgba(52, 212, 153, 0.300);
 }
 
 .gasto {
-    color: red; /* Color para gastos */
+    color: rgb(216, 57, 57);
+    text-shadow: 0px 2px 12px rgba(216, 57, 57, 0.300);
 }
